@@ -123,7 +123,7 @@ class RegexLearningTest {
      * rightmost occurrence of "foo" has been regurgitated, at which point the match succeeds and the search ends.
      */
     @Test
-    @DisplayName("Greedy match context. Finds single greedy match.")
+    @DisplayName("see http://stackoverflow.com/a/5319978/3890849 Greedy match context. Finds single greedy match.")
     void greedyTest() {
         regex.findOccurences(".*foo", "xfooxxxxxxfoo");
     }
@@ -135,9 +135,15 @@ class RegexLearningTest {
      * Our test harness continues the process until the input string is exhausted. It finds another match at 4 and 13.
      */
     @Test
-    @DisplayName("use of ? in reluctant manner context. Finds 2 matches. Note that it does not find entire string.")
+    @DisplayName("see http://stackoverflow.com/a/5319978/3890849 Reluctant matching. Finds 2 matches. Note that it does not find entire string.")
     void reluctantTest() {
         regex.findOccurences(".*?foo", "xfooxxxxxxfoo");
+    }
+ 
+    @Test
+    @DisplayName("Another reluctant matching.")
+    void reluctantTest2() {
+        regex.findOccurences(".??foo", "xfooxxxxxxfoo");
     }
  
     
@@ -148,10 +154,28 @@ class RegexLearningTest {
      * not immediately found.
      */
     @Test
-    @DisplayName("use of ? in reluctant manner context. Finds 2 matches. Note that it does not find entire string.")
+    @DisplayName("see http://stackoverflow.com/a/5319978/3890849 Possesive matching.")
     void possesiveTest() {
-        regex.findOccurences(".*?foo", "xfooxxxxxxfoo");
+        regex.findOccurences(".*+foo", "xfooxxxxxxfoo");
     }
+    
+    @Test
+    @DisplayName("Possesive matching. Once or not at all.")
+    void possesiveTest2() {
+        regex.findOccurences(".?+foo", "xfooxxxxxxfoo");
+    }
+    
+    
+    
+    
+    
+    @Test
+    @DisplayName("Line start end matching. ^ is line start , $ is line end.")
+    void lineStartAndEnd() {
+        regex.findOccurences("^dog$", "dog");
+    }
+    
+    
     
     
     
